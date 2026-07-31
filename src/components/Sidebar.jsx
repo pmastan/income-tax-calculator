@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   FaHome,
@@ -9,10 +10,14 @@ import {
   FaBriefcase,
   FaPiggyBank,
   FaTable,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import "./Sidebar.css";
 
 function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const menuItems = [
     {
       name: "Dashboard",
@@ -62,31 +67,55 @@ function Sidebar() {
   ];
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <h2>💰 TaxCalc</h2>
-        <p>Income Tax Calculator</p>
+    <>
+      {/* Mobile Header */}
+      <div className="mobile-header">
+        <button
+          className="menu-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        <h2>💰 Tax Calculator</h2>
       </div>
 
-      <nav className="sidebar-menu">
-        {menuItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) =>
-              isActive ? "menu-link active" : "menu-link"
-            }
-          >
-            <span className="menu-icon">{item.icon}</span>
-            <span>{item.name}</span>
-          </NavLink>
-        ))}
-      </nav>
+      {/* Overlay */}
+      {isOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
 
-      <div className="sidebar-footer">
-        <small>© 2026 Tax Calculator</small>
-      </div>
-    </aside>
+      {/* Sidebar */}
+      <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+        <div className="sidebar-header">
+          <h2>💰 TaxCalculator</h2>
+          <p>Income Tax Calculator</p>
+        </div>
+
+        <nav className="sidebar-menu">
+          {menuItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
+                isActive ? "menu-link active" : "menu-link"
+              }
+            >
+              <span className="menu-icon">{item.icon}</span>
+              <span>{item.name}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="sidebar-footer">
+          <small>© 2026 Tax Calculator</small>
+        </div>
+      </aside>
+    </>
   );
 }
 

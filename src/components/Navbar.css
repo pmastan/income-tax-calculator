@@ -7,23 +7,22 @@
 .navbar {
   width: 100%;
   height: 70px;
-  background: #0d6efd;
+  background: #1e3a8a;
   color: white;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
+  justify-content: space-between;
+  padding: 0 35px;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-logo a {
   color: white;
   text-decoration: none;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 700;
 }
 
 .navbar-logo span {
@@ -33,56 +32,112 @@
 .navbar-links {
   display: flex;
   list-style: none;
-  gap: 25px;
+  gap: 18px;
 }
 
-.navbar-links a {
+.navbar-links li a {
   color: white;
   text-decoration: none;
   font-size: 16px;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 6px;
   transition: 0.3s;
 }
 
-.navbar-links a:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.active {
+.navbar-links li a:hover,
+.navbar-links li a.active {
   background: white;
-  color: #0d6efd !important;
-  font-weight: bold;
+  color: #1e3a8a;
 }
 
-/* Responsive */
+/* Hamburger */
+
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Overlay */
+
+.overlay {
+  display: none;
+}
+
+/* Tablet */
 
 @media (max-width: 992px) {
   .navbar {
-    flex-direction: column;
-    height: auto;
-    padding: 15px;
+    padding: 0 20px;
+  }
+
+  .menu-icon {
+    display: block;
+    z-index: 1200;
   }
 
   .navbar-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 15px;
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 280px;
+    height: calc(100vh - 70px);
+    background: #1e3a8a;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px;
+    gap: 8px;
+    transition: 0.35s ease;
+    overflow-y: auto;
   }
 
-  .navbar-logo {
-    margin-bottom: 10px;
+  .navbar-links.active {
+    right: 0;
+  }
+
+  .navbar-links li {
+    width: 100%;
+  }
+
+  .navbar-links li a {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
   }
 }
 
-@media (max-width: 600px) {
-  .navbar-links a {
-    font-size: 14px;
-    padding: 6px 10px;
+/* Mobile */
+
+@media (max-width: 576px) {
+  .navbar {
+    height: 65px;
+    padding: 0 15px;
   }
 
   .navbar-logo a {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .navbar-logo span {
+    display: none;
+  }
+
+  .navbar-links {
+    top: 65px;
+    width: 240px;
+    height: calc(100vh - 65px);
+  }
+
+  .menu-icon {
+    font-size: 24px;
   }
 }
